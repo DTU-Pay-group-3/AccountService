@@ -5,6 +5,7 @@ import messaging.MessageQueue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AccountService {
 
@@ -39,6 +40,11 @@ public class AccountService {
     public DTUPayAccount registerDTUPayAccount(Event e) {
         System.out.println("Event RegisterAccount found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
+
+        if (newAccount.getId().isBlank()) {
+            newAccount.setId(UUID.randomUUID().toString());
+        }
+
         accounts.put(newAccount.getAccountNumber(), newAccount);
 
         Event event = new Event("AccountCreated", new Object[] { newAccount });
