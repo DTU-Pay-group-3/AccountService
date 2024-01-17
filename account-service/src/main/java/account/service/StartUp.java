@@ -10,6 +10,6 @@ public class StartUp {
 	private void startUp() throws Exception {
 		System.out.println("startup");
 		var mq = new RabbitMqQueue("rabbitMq");
-		new StudentIdService(mq);
+		new AccountService(mq);
 	}
 }

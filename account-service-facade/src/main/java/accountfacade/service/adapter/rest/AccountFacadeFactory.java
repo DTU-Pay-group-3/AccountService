@@ -1,12 +1,12 @@
 package accountfacade.service.adapter.rest;
 
+import accountfacade.service.AccountFacadeService;
 import messaging.implementations.RabbitMqQueue;
-import accountfacade.service.StudentRegistrationService;
 
-public class StudentRegistrationFactory {
-	static StudentRegistrationService service = null;
+public class AccountFacadeFactory {
+	static AccountFacadeService service = null;
 
-	public synchronized StudentRegistrationService getService() {
+	public synchronized AccountFacadeService getService() {
 		// The singleton pattern.
 		// Ensure that there is at most
 		// one instance of a PaymentService
@@ -23,7 +23,7 @@ public class StudentRegistrationFactory {
 		// At the end, we can use the PaymentService in tests
 		// without sending actual messages to RabbitMq.
 		var mq = new RabbitMqQueue("rabbitMq");
-		service = new StudentRegistrationService(mq);
+		service = new AccountFacadeService(mq);
 //		new StudentRegistrationServiceAdapter(service, mq);
 		return service;
 	}
