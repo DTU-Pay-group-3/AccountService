@@ -23,9 +23,10 @@ public class AccountFacadeService {
         return registeredAccount.join();
     }
 
-    public void handleAccountCreated(Event ev) {
+    public DTUPayAccount handleAccountCreated(Event ev) {
         var a = ev.getArgument(0, DTUPayAccount.class);
         registeredAccount.complete(a);
+        return a;
     }
 
     public DTUPayAccount getAccount(String id) {
@@ -35,8 +36,9 @@ public class AccountFacadeService {
         return returnedAccount.join();
     }
 
-    public void handleAccountReturned(Event ev) {
+    public DTUPayAccount handleAccountReturned(Event ev) {
         var a = ev.getArgument(0, DTUPayAccount.class);
         returnedAccount.complete(a);
+        return a;
     }
 }

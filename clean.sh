@@ -5,10 +5,10 @@ pushd messaging-utilities-3.3
 mvn clean
 popd 
 
-pushd student-id-service 
+pushd account-service
 mvn clean
 popd 
 
-pushd student-registration-service
+pushd account-service-facade
 mvn clean
 popd 

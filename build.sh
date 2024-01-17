@@ -9,10 +9,10 @@ pushd messaging-utilities-3.4
 popd 
 
 # Build the services
-pushd student-id-service 
+pushd account-service
 ./build.sh
 popd 
 
-pushd student-registration-service
+pushd account-service-facade
 ./build.sh
 popd 
