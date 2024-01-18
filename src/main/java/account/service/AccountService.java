@@ -41,6 +41,12 @@ public class AccountService {
         System.out.println("Event RegisterAccount found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
 
+        if (this.accounts.containsKey(newAccount.getId())) {
+            Event event = new Event("AccountAlreadyExists", new Object[] { newAccount });
+            messageQueue.publish(event);
+            return newAccount;
+        }
+
         if (newAccount.getId().isBlank()) {
             newAccount.setId(UUID.randomUUID().toString());
         }

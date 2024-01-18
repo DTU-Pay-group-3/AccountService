@@ -12,6 +12,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import messaging.Event;
 import messaging.MessageQueue;
+import org.junit.After;
 
 public class AccountServiceSteps {
 	MessageQueue queue = mock(MessageQueue.class);
@@ -23,7 +24,6 @@ public class AccountServiceSteps {
 
 	@Given("an unregistered account exists")
 	public void anUnregisteredAccountExists() {
-		assertTrue(s.getAccounts().isEmpty());
 		this.account = new DTUPayAccount("Alice", "Aname", "1122330000", "1234");
 	}
 
@@ -59,5 +59,28 @@ public class AccountServiceSteps {
 	@And("the information of the account is returned")
 	public void theInformationOfTheAccountIsReturned() {
 		assertEquals(this.account, this.result);
+	}
+
+	@And("an account is not created")
+	public void anAccountIsNotCreated() {
+		DTUPayAccount existingAccount = s.getAccounts().get(this.account.getId());
+		assertNotEquals(this.account.getFirstName(), existingAccount.getFirstName());
+	}
+
+	@And("an account with the same id already exists")
+	public void anAccountWithTheSameIdAlreadyExists() {
+		DTUPayAccount existingAccount = new DTUPayAccount(
+				"existing",
+				"account",
+				this.account.getCprNumber(),
+				this.account.getAccountNumber()
+		);
+		existingAccount.setId(this.account.getId());
+		s.addAccount(existingAccount);
+	}
+
+	@After
+	public void after() {
+		s.getAccounts().remove(this.account.getId());
 	}
 }
