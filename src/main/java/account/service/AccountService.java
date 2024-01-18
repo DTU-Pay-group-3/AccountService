@@ -15,7 +15,7 @@ public class AccountService {
     public AccountService(MessageQueue mq) {
         messageQueue = mq;
         this.messageQueue.addHandler("GetAllAccountsRequested", this::getAllDTUPayAccounts);
-        this.messageQueue.addHandler("GetAccountRequested", this::getDTUPayAccount);
+        this.messageQueue.addHandler("GetDTUPayAccount", this::getDTUPayAccount);
         this.messageQueue.addHandler("RegisterAccountRequested", this::registerDTUPayAccount);
     }
 
@@ -31,7 +31,7 @@ public class AccountService {
         String accNumber = e.getArgument(0, String.class);
         DTUPayAccount account = accounts.get(accNumber);
 
-        Event event = new Event("AccountReturned", new Object[] { account });
+        Event event = new Event("DTUPayAccountReturned", new Object[] { account });
         messageQueue.publish(event);
 
         return account;
