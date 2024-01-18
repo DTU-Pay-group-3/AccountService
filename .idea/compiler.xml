@@ -7,16 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="messaging-utilities" />
+        <module name="AccountService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="account-service" target="11" />
       <module name="account-service-facade" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="account-service" options="-parameters" />
+      <module name="AccountService" options="-parameters" />
       <module name="account-service-facade" options="-parameters" />
     </option>
   </component>

@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/student-registration-service/pom.xml" />
         <option value="$PROJECT_DIR$/account-service/pom.xml" />
         <option value="$PROJECT_DIR$/account-service-facade/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
