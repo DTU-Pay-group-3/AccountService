@@ -1,6 +1,6 @@
 # Message Queue Example
 
-The project consists of 4 projects
+The project consists of 4 projects:
 
 - A Maven library for some utilities providing an abstraction to accessing the message queue in `messaging-utilities-3.4` which are installled using `mvn install` through the build script
 - The student registration microservice in `student-registration-service` which calls the service in the student id microservice. The service offers a REST interface that is used by the end-to-end tests. The service used a message queue to talk to the `student-id-service`.
