@@ -50,7 +50,7 @@ public class AccountServiceSteps {
 	@And("an account is created")
 	public void anAccountIsCreated() {
 		assertFalse(s.getAccounts().isEmpty());
-		assertTrue(s.getAccounts().containsKey(this.account.getAccountNumber()));
+		assertTrue(s.getAccounts().containsKey(this.account.getId()));
 	}
 
 	@Given("a customer in DTUPay with id {string}")
@@ -71,9 +71,9 @@ public class AccountServiceSteps {
 
 	@And("an account is not created")
 	public void anAccountIsNotCreated() {
-		assertFalse(this.result.getId().isBlank());
+		assertTrue(this.result.getId().isBlank());
 
-		DTUPayAccount existingAccount = s.getAccounts().get(this.account.getAccountNumber());
+		DTUPayAccount existingAccount = s.getAccounts().get(this.account.getId());
 		assertNotEquals(this.account.getFirstName(), existingAccount.getFirstName());
 	}
 

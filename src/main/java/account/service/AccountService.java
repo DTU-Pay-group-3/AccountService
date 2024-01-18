@@ -28,8 +28,8 @@ public class AccountService {
 
     public DTUPayAccount getDTUPayAccount(Event e) {
         System.out.println("Event GetAllAccounts found");
-        String accNumber = e.getArgument(0, String.class);
-        DTUPayAccount account = accounts.get(accNumber);
+        String id = e.getArgument(0, String.class);
+        DTUPayAccount account = accounts.get(id);
 
         Event event = new Event("DTUPayAccountReturned", new Object[] { account });
         messageQueue.publish(event);
@@ -41,7 +41,7 @@ public class AccountService {
         System.out.println("Event RegisterAccount found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
 
-        if (this.accounts.containsKey(newAccount.getAccountNumber())) {
+        if (this.accounts.containsKey(newAccount.getId())) {
             DTUPayAccount emptyAccount = new DTUPayAccount("", "", "", "");
             emptyAccount.setId("");
 
@@ -54,7 +54,7 @@ public class AccountService {
             newAccount.setId(UUID.randomUUID().toString());
         }
 
-        accounts.put(newAccount.getAccountNumber(), newAccount);
+        accounts.put(newAccount.getId(), newAccount);
 
         Event event = new Event("AccountCreated", new Object[] { newAccount });
         messageQueue.publish(event);
@@ -67,6 +67,6 @@ public class AccountService {
     }
 
     public void addAccount(DTUPayAccount account) {
-        this.accounts.put(account.getAccountNumber(), account);
+        this.accounts.put(account.getId(), account);
     }
 }
