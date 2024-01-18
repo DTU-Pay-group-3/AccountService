@@ -45,12 +45,20 @@ public class AccountService {
             newAccount.setId(UUID.randomUUID().toString());
         }
 
-        accounts.put(newAccount.getAccountNumber(), newAccount);
+        if (accounts.containsKey(newAccount.getAccountNumber())) {
+            Event event = new Event("AccountAlreadyExists", new Object[] { newAccount });
+            messageQueue.publish(event);
 
-        Event event = new Event("AccountCreated", new Object[] { newAccount });
-        messageQueue.publish(event);
+            return null;
 
-        return newAccount;
+        } else {
+            accounts.put(newAccount.getAccountNumber(), newAccount);
+
+            Event event = new Event("AccountCreated", new Object[] { newAccount });
+            messageQueue.publish(event);
+
+            return newAccount;
+        }
     }
 
     public HashMap<String, DTUPayAccount> getAccounts() {
