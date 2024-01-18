@@ -45,11 +45,6 @@ public class AccountService {
             newAccount.setId(UUID.randomUUID().toString());
         }
 
-        //TODO Verify with bank that accountNumber exists
-
-
-        //TODO Send response message based off this
-
         accounts.put(newAccount.getAccountNumber(), newAccount);
 
         Event event = new Event("AccountCreated", new Object[] { newAccount });
