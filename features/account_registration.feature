@@ -5,11 +5,11 @@ Feature: DTUPay account assignment
     Then the "AccountCreated" event is sent
     And an account is created
 
-  Scenario: Account already exsists
+  Scenario: Account already exists
     Given an unregistered account exists
     And an account with the same id already exists
     When a "RegisterAccountRequested" event for a customer is received
-    Then the "AccountAlreadyExists" event is sent
+    Then the "AccountAlreadyExists" event is sent with an empty response
     And an account is not created
 
   Scenario: User mapped successfully

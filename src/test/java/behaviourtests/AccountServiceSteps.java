@@ -38,6 +38,12 @@ public class AccountServiceSteps {
 		verify(queue).publish(event);
 	}
 
+	@Then("the {string} event is sent with an empty response")
+	public void theEventIsSentWithAnEmptyResponse(String eventName) {
+		var event = new Event(eventName, new Object[] { new DTUPayAccount() });
+		verify(queue).publish(event);
+	}
+
 
 	@And("an account is created")
 	public void anAccountIsCreated() {

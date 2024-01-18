@@ -42,7 +42,7 @@ public class AccountService {
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
 
         if (this.accounts.containsKey(newAccount.getId())) {
-            Event event = new Event("AccountAlreadyExists", new Object[] { newAccount });
+            Event event = new Event("AccountAlreadyExists", new Object[] { new DTUPayAccount() });
             messageQueue.publish(event);
             return newAccount;
         }
