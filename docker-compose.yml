@@ -1,14 +1,6 @@
 version: '3'
 services:
-  rabbitMq:
-    image: rabbitmq:3-management
-    container_name: rabbitMq_container
-    ports:
-     - "5672:5672"
-     - "15672:15672"
-
   account-service:
     image: account
-    container_name: account
-
+    build: account-service
  
