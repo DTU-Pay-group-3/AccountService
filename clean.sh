@@ -7,8 +7,4 @@ popd
 
 pushd account-service
 mvn clean
-popd 
-
-pushd account-service-facade
-mvn clean
-popd 
+popd

@@ -6,13 +6,7 @@ services:
     ports:
      - "5672:5672"
      - "15672:15672"
-    
-  account-service-facade:
-    image: account-facade
-    container_name: account-facade
-    ports:
-     - "8080:8080"
-    
+
   account-service:
     image: account
     container_name: account
