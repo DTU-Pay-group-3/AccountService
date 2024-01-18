@@ -41,10 +41,13 @@ public class AccountService {
         System.out.println("Event RegisterAccount found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
 
-        if (this.accounts.containsKey(newAccount.getId())) {
-            Event event = new Event("AccountAlreadyExists", new Object[] { new DTUPayAccount() });
+        if (this.accounts.containsKey(newAccount.getAccountNumber())) {
+            DTUPayAccount emptyAccount = new DTUPayAccount("", "", "", "");
+            emptyAccount.setId("");
+
+            Event event = new Event("AccountAlreadyExists", new Object[] { emptyAccount });
             messageQueue.publish(event);
-            return newAccount;
+            return emptyAccount;
         }
 
         if (newAccount.getId().isBlank()) {
@@ -64,6 +67,6 @@ public class AccountService {
     }
 
     public void addAccount(DTUPayAccount account) {
-        this.accounts.put(account.getId(), account);
+        this.accounts.put(account.getAccountNumber(), account);
     }
 }

@@ -6,13 +6,13 @@ import static org.mockito.Mockito.verify;
 
 import account.service.AccountService;
 import account.service.DTUPayAccount;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import messaging.Event;
 import messaging.MessageQueue;
-import org.junit.After;
 
 public class AccountServiceSteps {
 	MessageQueue queue = mock(MessageQueue.class);
@@ -40,7 +40,9 @@ public class AccountServiceSteps {
 
 	@Then("the {string} event is sent with an empty response")
 	public void theEventIsSentWithAnEmptyResponse(String eventName) {
-		var event = new Event(eventName, new Object[] { new DTUPayAccount() });
+		DTUPayAccount emptyAccount = new DTUPayAccount("", "", "", "");
+		emptyAccount.setId("");
+		var event = new Event(eventName, new Object[] { emptyAccount });
 		verify(queue).publish(event);
 	}
 
@@ -48,7 +50,7 @@ public class AccountServiceSteps {
 	@And("an account is created")
 	public void anAccountIsCreated() {
 		assertFalse(s.getAccounts().isEmpty());
-		assertEquals(this.account, this.result);
+		assertTrue(s.getAccounts().containsKey(this.account.getAccountNumber()));
 	}
 
 	@Given("a customer in DTUPay with id {string}")
@@ -69,7 +71,9 @@ public class AccountServiceSteps {
 
 	@And("an account is not created")
 	public void anAccountIsNotCreated() {
-		DTUPayAccount existingAccount = s.getAccounts().get(this.account.getId());
+		assertFalse(this.result.getId().isBlank());
+
+		DTUPayAccount existingAccount = s.getAccounts().get(this.account.getAccountNumber());
 		assertNotEquals(this.account.getFirstName(), existingAccount.getFirstName());
 	}
 
@@ -83,10 +87,5 @@ public class AccountServiceSteps {
 		);
 		existingAccount.setId(this.account.getId());
 		s.addAccount(existingAccount);
-	}
-
-	@After
-	public void after() {
-		s.getAccounts().remove(this.account.getId());
 	}
 }
