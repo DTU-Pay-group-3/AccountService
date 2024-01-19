@@ -2,6 +2,7 @@ package account.service;
 
 import messaging.implementations.RabbitMqQueue;
 
+// @Author Jacob
 public class StartUp {
 	public static void main(String[] args) throws Exception {
 		new StartUp().startUp();

@@ -12,12 +12,14 @@ public class AccountService {
     MessageQueue messageQueue;
     HashMap<String, DTUPayAccount> accounts = new HashMap<>();
 
+    // @Author Jacob
     public AccountService(MessageQueue mq) {
         messageQueue = mq;
         this.messageQueue.addHandler("GetDTUPayAccount", this::getDTUPayAccount);
         this.messageQueue.addHandler("RegisterAccountRequested", this::registerDTUPayAccount);
     }
 
+    // @Author: Caroline
     public DTUPayAccount getDTUPayAccount(Event e) {
         System.out.println("Event GetAllAccounts found");
         String id = e.getArgument(0, String.class);
@@ -39,6 +41,7 @@ public class AccountService {
         return account;
     }
 
+    // @Author Andreas
     public DTUPayAccount registerDTUPayAccount(Event e) {
         System.out.println("Event RegisterAccountRequested found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);

@@ -14,13 +14,13 @@ import io.cucumber.java.en.When;
 import messaging.Event;
 import messaging.MessageQueue;
 
+// @Author for entire class: Caroline
 public class AccountServiceSteps {
 	MessageQueue queue = mock(MessageQueue.class);
 	AccountService s = new AccountService(queue);
 
 	DTUPayAccount account;
 	DTUPayAccount result;
-
 
 	@Given("an unregistered account exists")
 	public void anUnregisteredAccountExists() {
