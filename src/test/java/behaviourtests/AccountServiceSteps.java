@@ -88,4 +88,14 @@ public class AccountServiceSteps {
 		existingAccount.setId(this.account.getId());
 		s.addAccount(existingAccount);
 	}
+
+	@And("the information of the account is empty")
+	public void theInformationOfTheAccountIsEmpty() {
+		assertEquals("", this.result.getId());
+		assertEquals("", this.result.getAccountNumber());
+		assertEquals("", this.result.getFirstName());
+		assertEquals("", this.result.getLastName());
+		assertEquals("", this.result.getCprNumber());
+
+	}
 }

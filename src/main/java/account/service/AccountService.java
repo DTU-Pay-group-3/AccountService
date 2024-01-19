@@ -14,22 +14,24 @@ public class AccountService {
 
     public AccountService(MessageQueue mq) {
         messageQueue = mq;
-        this.messageQueue.addHandler("GetAllAccountsRequested", this::getAllDTUPayAccounts);
         this.messageQueue.addHandler("GetDTUPayAccount", this::getDTUPayAccount);
         this.messageQueue.addHandler("RegisterAccountRequested", this::registerDTUPayAccount);
-    }
-
-    public Map<String, DTUPayAccount> getAllDTUPayAccounts(Event e) {
-        System.out.println("Event GetAllAccounts found");
-        Event event = new Event("AllAccountsReturned", new Object[] { accounts });
-        messageQueue.publish(event);
-        return accounts;
     }
 
     public DTUPayAccount getDTUPayAccount(Event e) {
         System.out.println("Event GetAllAccounts found");
         String id = e.getArgument(0, String.class);
         DTUPayAccount account = accounts.get(id);
+
+        if (account == null) {
+            DTUPayAccount emptyAccount = new DTUPayAccount("", "", "", "");
+            emptyAccount.setId("");
+
+            Event notFoundEvent = new Event("DTUPayAccountNotFound", new Object[]{ emptyAccount });
+            messageQueue.publish(notFoundEvent);
+
+            return emptyAccount;
+        }
 
         Event event = new Event("DTUPayAccountReturned", new Object[] { account });
         messageQueue.publish(event);
@@ -38,7 +40,7 @@ public class AccountService {
     }
 
     public DTUPayAccount registerDTUPayAccount(Event e) {
-        System.out.println("Event RegisterAccount found");
+        System.out.println("Event RegisterAccountRequested found");
         DTUPayAccount newAccount = e.getArgument(0, DTUPayAccount.class);
 
         if (this.accounts.containsKey(newAccount.getId())) {
